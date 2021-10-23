@@ -21,11 +21,7 @@
           </v-row>
         </v-col>
       </v-row>
-      <div id="main-content">
-        <p>
-         ようこそ『MONEY　TEACHER』へ
-        </p>
-      </div>
+      
     </v-row>
   </v-app>
 </template>
@@ -55,18 +51,6 @@
       }
     }
   }
-  & #main-content {
-    width: 80%;
-    height: 150px;
-    margin: 200px auto;
-    // background-color: pink;
-    & p {
-      font-size: 45px;
-      font-weight: bold;
-      text-align: center;
-      line-height: 2em;
-      color: rgba(45, 193, 238, 0.7);
-    }
-  }
+  
 }
 </style>
