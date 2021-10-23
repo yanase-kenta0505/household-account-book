@@ -1,77 +1,107 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <v-card class="logo py-4 d-flex justify-center">
-        <NuxtLogo />
-        <VuetifyLogo />
-      </v-card>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
+  <v-app style="overflow:hidden;">
+    <v-row id="container" class="mx-0 mt-0 mb-0 ">
+      <v-row id="header" no-gutters class="d-flex justify-space-between">
+        <v-col id="main-text" cols="4" class="mt-5 ml-15 px-0 pt-0 pb-0"
+          >MONEY TEACHER
+        </v-col>
+        <v-col cols="6" id="nav" class="mt-5 px-0 pt-0 pb-0">
+          <v-row style="nav-box" no-gutters class="ml-10 d-flex justify-end">
+            <v-col cols="7" class="mr-5 d-flex justify-end">
+              <nuxt-link to="about" class="mr-5">アプリについて</nuxt-link>
+              <nuxt-link to="signUp" class="mr-5">新規会員登録</nuxt-link>
+              <nuxt-link to="login" class="mr-5">ログイン</nuxt-link>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+      <v-row id="main" class="d-flex">
+        <v-col cols="5">
+          <div id="explanation-box">
+            <div id="cards" class="d-flex flex-column align-center pt-16">
+              <v-card class="mb-5"><p>家計の管理</p></v-card>
+              <v-card class="mb-5"><p>家計の見直し</p></v-card>
+              <v-card class="mb-5"><p>家計の相談</p></v-card>
+            </div>
+            <div id="arrow-box"></div>
+            <div id="explanation-text"><p>このアプリ1つで解決します</p></div>
           </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+        </v-col>
+        <v-col cols="7">
+          <img id="top-img" src="/toppage-image.png" alt=""
+        /></v-col>
+      </v-row>
+    </v-row>
+  </v-app>
 </template>
+
+<style lang="scss" scoped>
+#container {
+  width: 100%;
+  flex: initial;
+
+  & #header {
+    flex: initial;
+    height: 80px;
+    width: 100%;
+    & #main-text {
+      font-size: 40px;
+      font-weight: bold;
+      color: rgba(36, 89, 204, 0.7);
+    }
+    & #nav {
+      //   background-color: pink;
+      & #nav-box {
+        width: 100%;
+      }
+    }
+  }
+  & #main {
+    width: 100%;
+    flex: initial;
+    height: 600px;
+    margin: 0;
+    & #top-img {
+      height: 600px;
+    }
+    & #explanation-box {
+      width: 100%;
+      height: 100%;
+      & #cards {
+        width: 100%;
+        height: 270px;
+        & .v-card {
+          width: 60%;
+          height: 70px;
+          & p {
+            width: 100%;
+            height: 100%;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 70px;
+          }
+        }
+      }
+      & #arrow-box {
+        width: 200px;
+        height: 50px;
+        margin: 80px auto 20px;
+        background-image: url("/arrow.png");
+        background-size: contain;
+        background-position: center;
+      }
+      & #explanation-text{
+          width: 80%;
+          height: 30px;
+          margin: 0 auto;
+          & p{
+              font-size: 25px;
+              color: rgb(187, 61, 61);
+              text-align: center;
+          }
+      }
+    }
+  }
+}
+</style>
