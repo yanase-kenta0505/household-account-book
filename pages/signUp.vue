@@ -1,7 +1,12 @@
 <template>
   <v-app>
     <div id="signup-container">
-      <v-card class="mx-auto" width="450px" height="300px" style="margin-top:200px">
+      <v-card
+        class="mx-auto"
+        width="450px"
+        height="300px"
+        style="margin-top:200px"
+      >
         <v-card-title>
           <h1 class="display-1">新規登録</h1>
         </v-card-title>
@@ -50,11 +55,10 @@ export default {
 <style lang="scss" scoped>
 #signup-container {
   height: 100%;
-  
+  background-color: rgb(240, 236, 236);
   & .v-card {
-    background-color: rgba(201, 209, 236, 0.9);
-    & .v-btn{
-        background-color: rgba(57, 222, 228, 0.4);
+    & .v-btn {
+      background-color: white;
     }
   }
 }

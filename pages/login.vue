@@ -55,11 +55,10 @@ export default {
 <style lang="scss" scoped>
 #signup-container {
   height: 100%;
-  
+  background-color: rgb(240, 236, 236);
   & .v-card {
-    background-color: rgba(201, 209, 236, 0.9);
     & .v-btn {
-      background-color: rgba(57, 222, 228, 0.4);
+      background-color: white;
     }
   }
 }
