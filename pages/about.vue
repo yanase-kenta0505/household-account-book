@@ -8,7 +8,11 @@
         MONEY TEACHER
       </div>
     </v-app-bar>
-    <div id="aboutUs-top" class="d-flex flex-column align-center pt-15">
+    <div
+      id="aboutUs-top"
+      class="d-flex flex-column align-center pt-15"
+      ref="observe_element"
+    >
       <h1>『MONEY　TEACHERとは』</h1>
       <p>
         面倒な家計管理で大事な時間を無駄にしていませんか？ <br />
@@ -18,28 +22,49 @@
       </p>
       <h2>その悩みすべて『MONEY　TEACHER』にお任せください</h2>
       <v-icon x-large class="mt-15">mdi-arrow-down-drop-circle-outline</v-icon>
-    </div>
-    <div
-      id="aboutUs-cando"
-      ref="observe_element"
-      :class="{ bgChange: bgChange }"
-    >
-      <transition name="slideIn">
-        <div v-show="slideIn">
-          <h2>私たちが提供できること</h2>
-          <div class="threeItem d-flex justify-lg-space-around mt-15">
-            <div class="manegment">
-              <p>管理</p>
-            </div>
-            <div class="fix">
-              <p>見直し</p>
-            </div>
-            <div class="consultation">
-              <p>相談</p>
-            </div>
-          </div>
-        </div>
-      </transition>
+
+      <h2 class="mt-16">３つのサービス</h2>
+      <div
+        class="cardBox d-flex justify-space-around mb-15"
+        style="width:600px;margin-top:30px"
+        v-show="slideIn"
+      >
+        <v-btn height="50px" @click="showA">MANAGEMENT</v-btn>
+        <v-btn height="50px" @click="showB">OUTGOING</v-btn>
+        <v-btn height="50px" @click="showC">MATCHING</v-btn>
+      </div>
+      <div class="mb-10">
+        <v-expand-transition mode="out-in">
+          <v-card width="1100px" height="auto" class="card1 mt-10" v-show="a">
+            <img src="/manegement.jpg" alt="" />
+            <p>
+              基本となる家計管理<br />
+              収支の把握することが第一歩
+            </p>
+          </v-card>
+        </v-expand-transition>
+        <v-expand-transition mode="out-in">
+          <v-card width="1100px" height="400px" class="card2 mt-10 " v-show="b">
+            <img src="/outgoing.png" alt="" />
+            <p>
+              あなたの家計術を発信しよう<br />
+              あなたの家計術が誰かを助けるかもしれません<br />
+              他の人の投稿を見ることもできます<br />
+              気に入った投稿があれば『LIKE』をつけてあげましょう
+            </p>
+          </v-card>
+        </v-expand-transition>
+        <v-expand-transition mode="out-in">
+          <v-card width="1100px" height="400px" class="card3 mt-10" v-show="c">
+            <p>
+              あなたの先生を見つけてみませんか<br />
+              「税金」「保険」などお金に関することは難しいことばかり<br />
+              なんでも相談してみましょう
+            </p>
+            <img src="/teacher.png" alt="" />
+          </v-card>
+        </v-expand-transition>
+      </div>
     </div>
   </v-app>
 </template>
@@ -49,22 +74,65 @@ export default {
   data() {
     return {
       observer: null,
-      bgChange: false,
-      slideIn: false
+      slideIn: false,
+      a: false,
+      b: false,
+      c: false
     };
   },
+  methods: {
+    showA() {
+      if (this.b === true || this.c === true) {
+        this.b = false;
+        this.c = false;
+        setTimeout(() => {
+          this.a = true;
+        }, 500);
+      } else if (this.a === false) {
+        this.a = true;
+      } else {
+        this.a = false;
+      }
+    },
+    showB() {
+      if (this.a === true || this.c === true) {
+        this.a = false;
+        this.c = false;
+        setTimeout(() => {
+          this.b = true;
+        }, 500);
+      } else if (this.b === false) {
+        this.b = true;
+      } else {
+        this.b = false;
+      }
+    },
+    showC() {
+      if (this.a === true || this.b === true) {
+        this.a = false;
+        this.b = false;
+        setTimeout(() => {
+          this.c = true;
+        }, 500);
+      } else if (this.c === false) {
+        this.c = true;
+      } else {
+        this.c = false;
+      }
+    }
+  },
+
   mounted() {
     const option = {
       root: null,
       rootMargin: "0px",
-      threshold: [0.5]
+      threshold: [1]
     };
     this.observer = new IntersectionObserver(entries => {
       const entry = entries[0];
       if (entry && entry.isIntersecting) {
         console.log(entry);
         console.log("画面に入ったよ");
-        this.bgChange = true;
         this.slideIn = true;
       }
     }, option);
@@ -77,7 +145,7 @@ export default {
 <style lang="scss" scoped>
 #aboutUs-top {
   width: 100%;
-  height: 100%;
+  height: 1300px;
   background-color: #e3f2fd;
   & h1 {
     font-size: 60px;
@@ -93,34 +161,59 @@ export default {
   & h2 {
     font-size: 30px;
   }
-}
-#aboutUs-cando {
-  width: 100%;
-  height: 700px;
-  background-color: #e3f2fd;
-  &.bgChange {
-    background-color: #e3f2fd;
+  & .card1 {
+    position: relative;
+    & img {
+      width: 100%;
+      width: 100%;
+    }
+    & p {
+      min-width: 400px;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      background-color: transparent;
+      position: absolute;
+      top: 20px;
+      right: 60px;
+    }
   }
-  & h2 {
-    font-size: 40px;
-    text-align: center;
+  & .card2 {
+    position: relative;
+    & img {
+      height: 100%;
+      width: 590px;
+    }
+    & p {
+      position: absolute;
+      right: 30px;
+      top: 80px;
+      font-size: 17px;
+      font-weight: bold;
+    }
   }
-  & .threeItem {
-    width: 100%;
-    height: 100px;
-    & > div {
-      width: calc(100% / 3);
-      & p {
-        text-align: center;
-        font-size: 25px;
-      }
+  & .card3 {
+    position: relative;
+    & img {
+      height: 100%;
+      width: 590px;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    & p {
+      position: absolute;
+      top: 90px;
+      left: 30px;
+      font-size: 17px;
+      font-weight: bold;
     }
   }
 }
 
 .slideIn-enter {
-  transform: translateY(350px);
   opacity: 0;
+  transform: translateY(350px);
 }
 .slideIn-enter-active {
   transition: transform 1s, opacity 1s;
