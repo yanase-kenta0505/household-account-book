@@ -8,11 +8,7 @@
         MONEY TEACHER
       </div>
     </v-app-bar>
-    <div
-      id="aboutUs-top"
-      class="d-flex flex-column align-center pt-15"
-      ref="observe_element"
-    >
+    <div id="aboutUs-top" class="d-flex flex-column align-center pt-15">
       <h1>『MONEY　TEACHERとは』</h1>
       <p>
         面倒な家計管理で大事な時間を無駄にしていませんか？ <br />
@@ -23,47 +19,75 @@
       <h2>その悩みすべて『MONEY　TEACHER』にお任せください</h2>
       <v-icon x-large class="mt-15">mdi-arrow-down-drop-circle-outline</v-icon>
 
-      <h2 class="mt-16">３つのサービス</h2>
       <div
-        class="cardBox d-flex justify-space-around mb-15"
-        style="width:600px;margin-top:30px"
-        v-show="slideIn"
+        ref="observe_element"
+        style="widht:100%; height:1200px;"
+        class="mt-16"
       >
-        <v-btn height="50px" @click="showA">MANAGEMENT</v-btn>
-        <v-btn height="50px" @click="showB">OUTGOING</v-btn>
-        <v-btn height="50px" @click="showC">MATCHING</v-btn>
-      </div>
-      <div class="mb-10">
-        <v-expand-transition mode="out-in">
-          <v-card width="1100px" height="auto" class="card1 mt-10" v-show="a">
-            <img src="/manegement.jpg" alt="" />
-            <p>
-              基本となる家計管理<br />
-              収支の把握することが第一歩
-            </p>
-          </v-card>
-        </v-expand-transition>
-        <v-expand-transition mode="out-in">
-          <v-card width="1100px" height="400px" class="card2 mt-10 " v-show="b">
-            <img src="/outgoing.png" alt="" />
-            <p>
-              あなたの家計術を発信しよう<br />
-              あなたの家計術が誰かを助けるかもしれません<br />
-              他の人の投稿を見ることもできます<br />
-              気に入った投稿があれば『LIKE』をつけてあげましょう
-            </p>
-          </v-card>
-        </v-expand-transition>
-        <v-expand-transition mode="out-in">
-          <v-card width="1100px" height="400px" class="card3 mt-10" v-show="c">
-            <p>
-              あなたの先生を見つけてみませんか<br />
-              「税金」「保険」などお金に関することは難しいことばかり<br />
-              なんでも相談してみましょう
-            </p>
-            <img src="/teacher.png" alt="" />
-          </v-card>
-        </v-expand-transition>
+        <transition name="slideIn">
+          <div
+            class="threeService d-flex flex-column align-center"
+            v-if="slideIn"
+            style="width:100%;height:700px"
+          >
+            <h2>３つのサービス</h2>
+            <div
+              class="cardBox d-flex justify-space-around mb-15"
+              style="width:600px;margin-top:30px"
+            >
+              <v-btn height="50px" @click="showA">MANAGEMENT</v-btn>
+              <v-btn height="50px" @click="showB">OUTGOING</v-btn>
+              <v-btn height="50px" @click="showC">MATCHING</v-btn>
+            </div>
+            <div class="mb-10">
+              <v-expand-transition mode="out-in">
+                <v-card
+                  width="1100px"
+                  height="auto"
+                  class="card1 mt-10"
+                  v-show="a"
+                >
+                  <img src="/manegement.jpg" alt="" />
+                  <p>
+                    基本となる家計管理<br />
+                    収支の把握することが第一歩
+                  </p>
+                </v-card>
+              </v-expand-transition>
+              <v-expand-transition mode="out-in">
+                <v-card
+                  width="1100px"
+                  height="400px"
+                  class="card2 mt-10 "
+                  v-show="b"
+                >
+                  <img src="/outgoing.png" alt="" />
+                  <p>
+                    あなたの家計術を発信しよう<br />
+                    あなたの家計術が誰かを助けるかもしれません<br />
+                    他の人の投稿を見ることもできます<br />
+                    気に入った投稿があれば『LIKE』をつけてあげましょう
+                  </p>
+                </v-card>
+              </v-expand-transition>
+              <v-expand-transition mode="out-in">
+                <v-card
+                  width="1100px"
+                  height="400px"
+                  class="card3 mt-10"
+                  v-show="c"
+                >
+                  <p>
+                    あなたの先生を見つけてみませんか<br />
+                    「税金」「保険」などお金に関することは難しいことばかり<br />
+                    なんでも相談してみましょう
+                  </p>
+                  <img src="/teacher.png" alt="" />
+                </v-card>
+              </v-expand-transition>
+            </div>
+          </div>
+        </transition>
       </div>
     </div>
   </v-app>
@@ -123,10 +147,11 @@ export default {
   },
 
   mounted() {
+    console.log(this.slideIn);
     const option = {
       root: null,
       rootMargin: "0px",
-      threshold: [1]
+      threshold: [0.5]
     };
     this.observer = new IntersectionObserver(entries => {
       const entry = entries[0];
@@ -213,10 +238,10 @@ export default {
 
 .slideIn-enter {
   opacity: 0;
-  transform: translateY(350px);
+  transform: translateY(600px);
 }
 .slideIn-enter-active {
-  transition: transform 1s, opacity 1s;
+  transition: transform 2.5s, opacity 3.5s;
 }
 .slideIn-enter-to {
   transform: translateY(0);
