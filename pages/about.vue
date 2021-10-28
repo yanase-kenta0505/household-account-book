@@ -1,10 +1,7 @@
 <template>
   <v-app>
     <v-app-bar elevation="0" color="#E3F2FD" max-height="80px">
-      <div
-        class="ml-10"
-        style="font-size:30px;width:350px;height:80px;line-height:80px;font-weight:bold"
-      >
+      <div class="ml-10 mt-10">
         MONEY TEACHER
       </div>
     </v-app-bar>
@@ -21,7 +18,7 @@
 
       <div
         ref="observe_element"
-        style="widht:100%; height:1200px;"
+        style="width:100%; height:1200px;"
         class="mt-16"
       >
         <transition name="slideIn">
@@ -35,54 +32,25 @@
               class="cardBox d-flex justify-space-around mb-15"
               style="width:600px;margin-top:30px"
             >
-              <v-btn height="50px" @click="showA">MANAGEMENT</v-btn>
-              <v-btn height="50px" @click="showB">OUTGOING</v-btn>
-              <v-btn height="50px" @click="showC">MATCHING</v-btn>
+              <v-btn
+                v-for="(btnItem, index) in btnItems"
+                :key="btnItem.id"
+                height="50px"
+                @click="showWindow(index)"
+                >{{ btnItem.name }}</v-btn
+              >
             </div>
             <div class="mb-10">
               <v-expand-transition mode="out-in">
                 <v-card
                   width="1100px"
-                  height="auto"
-                  class="card1 mt-10"
-                  v-show="a"
-                >
-                  <img src="/manegement.jpg" alt="" />
-                  <p>
-                    基本となる家計管理<br />
-                    収支の把握することが第一歩
-                  </p>
-                </v-card>
-              </v-expand-transition>
-              <v-expand-transition mode="out-in">
-                <v-card
-                  width="1100px"
                   height="400px"
-                  class="card2 mt-10 "
-                  v-show="b"
+                  class="mt-10"
+                  :class="[`card${index + 1}`]"
+                  v-show="btnItems[index].status"
                 >
-                  <img src="/outgoing.png" alt="" />
-                  <p>
-                    あなたの家計術を発信しよう<br />
-                    あなたの家計術が誰かを助けるかもしれません<br />
-                    他の人の投稿を見ることもできます<br />
-                    気に入った投稿があれば『LIKE』をつけてあげましょう
-                  </p>
-                </v-card>
-              </v-expand-transition>
-              <v-expand-transition mode="out-in">
-                <v-card
-                  width="1100px"
-                  height="400px"
-                  class="card3 mt-10"
-                  v-show="c"
-                >
-                  <p>
-                    あなたの先生を見つけてみませんか<br />
-                    「税金」「保険」などお金に関することは難しいことばかり<br />
-                    なんでも相談してみましょう
-                  </p>
-                  <img src="/teacher.png" alt="" />
+                  <img :src="images[index]" />
+                  <p v-html="messages[index]"></p>
                 </v-card>
               </v-expand-transition>
             </div>
@@ -99,49 +67,43 @@ export default {
     return {
       observer: null,
       slideIn: false,
-      a: false,
-      b: false,
-      c: false
+      index: 0,
+      btnItems: [
+        { name: "MANAGEMENT", status: false },
+        { name: "OUTGOING", status: false },
+        { name: "MATCHING", status: false }
+      ],
+      messages: [
+        "基本となる家計管理<br />収支の把握することが第一歩",
+        "あなたの家計術を発信しよう<br />あなたの家計術が誰かを助けるかもしれません<br /> 他の人の投稿を見ることもできます<br /> 気に入った投稿があれば『LIKE』をつけてあげましょう",
+        "あなたの先生を見つけてみませんか<br />「税金」「保険」などお金に関することは難しいことばかり<br />なんでも相談してみましょう"
+      ],
+      images: ["/manegement.jpg", "/outgoing.png", "/teacher.png"]
     };
   },
   methods: {
-    showA() {
-      if (this.b === true || this.c === true) {
-        this.b = false;
-        this.c = false;
-        setTimeout(() => {
-          this.a = true;
-        }, 500);
-      } else if (this.a === false) {
-        this.a = true;
+    showWindow(index) {
+      if (this.index === index) {
+        console.log("index同じだよ");
+        this.btnItems[index].status = !this.btnItems[index].status;
+      } else if (
+        this.btnItems.every(btnItem => {
+          btnItem.status === false;
+        })
+      ) {
+        this.btnItems[index].status = true;
       } else {
-        this.a = false;
-      }
-    },
-    showB() {
-      if (this.a === true || this.c === true) {
-        this.a = false;
-        this.c = false;
+        this.btnItems.forEach((btnItem, index) => {
+          btnItem.status = false;
+          console.log("indexすべてfalseにしたよ");
+        });
+
         setTimeout(() => {
-          this.b = true;
+          console.log("hi");
+          this.index = index;
+          this.btnItems[index].status = true;
+          // console.log("indexに関係するstatusをtrueにしたよ");
         }, 500);
-      } else if (this.b === false) {
-        this.b = true;
-      } else {
-        this.b = false;
-      }
-    },
-    showC() {
-      if (this.a === true || this.b === true) {
-        this.a = false;
-        this.b = false;
-        setTimeout(() => {
-          this.c = true;
-        }, 500);
-      } else if (this.c === false) {
-        this.c = true;
-      } else {
-        this.c = false;
       }
     }
   },
@@ -168,6 +130,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.v-toolbar__content {
+  & > div {
+    font-size: 40px;
+    width: 350px;
+    height: 80px;
+    line-height: 80px;
+    font-weight: bold;
+    color: rgba(36, 89, 204, 0.7);
+    font-weight: bold;
+  }
+}
 #aboutUs-top {
   width: 100%;
   height: 1300px;
@@ -190,7 +163,7 @@ export default {
     position: relative;
     & img {
       width: 100%;
-      width: 100%;
+      height: 100%;
     }
     & p {
       min-width: 400px;
@@ -200,38 +173,37 @@ export default {
       background-color: transparent;
       position: absolute;
       top: 20px;
-      right: 60px;
+      right: 40px;
     }
   }
   & .card2 {
-    position: relative;
+    display: flex;
     & img {
       height: 100%;
       width: 590px;
     }
     & p {
-      position: absolute;
-      right: 30px;
-      top: 80px;
+      width: calc(100%-590px);
       font-size: 17px;
       font-weight: bold;
+      align-self: center;
+      margin: 0 auto;
     }
   }
   & .card3 {
-    position: relative;
+    display: flex;
     & img {
       height: 100%;
       width: 590px;
-      position: absolute;
-      top: 0;
-      right: 0;
+      order: 2;
     }
     & p {
-      position: absolute;
-      top: 90px;
-      left: 30px;
+      width: calc(100% - 590px);
       font-size: 17px;
       font-weight: bold;
+      align-self: center;
+      order: 1;
+      margin-left: 10px;
     }
   }
 }
@@ -241,7 +213,7 @@ export default {
   transform: translateY(600px);
 }
 .slideIn-enter-active {
-  transition: transform 2.5s, opacity 3.5s;
+  transition: transform 1.5s, opacity 2.5s;
 }
 .slideIn-enter-to {
   transform: translateY(0);
