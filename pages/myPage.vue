@@ -12,8 +12,8 @@
       </v-sheet>
 
       <v-divider></v-divider>
-      <post-dialog></post-dialog>
       <v-list class="pt-0">
+      <post-dialog link></post-dialog>
         <v-list-item v-for="(link, index) in links" :key="link.text" link>
           <v-list-item-icon>
             <v-icon>{{ link.icon }}</v-icon>
