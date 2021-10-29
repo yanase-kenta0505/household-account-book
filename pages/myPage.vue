@@ -12,15 +12,17 @@
       </v-sheet>
 
       <v-divider></v-divider>
-
-      <v-list>
-        <v-list-item v-for="[icon, text] in links" :key="icon" link>
+      <post-dialog></post-dialog>
+      <v-list class="pt-0">
+        <v-list-item v-for="(link, index) in links" :key="link.text" link>
           <v-list-item-icon>
-            <v-icon>{{ icon }}</v-icon>
+            <v-icon>{{ link.icon }}</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>{{ text }}</v-list-item-title>
+            <v-list-item-title @click="setIndex(index)">
+              {{ link.text }}
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -65,17 +67,40 @@
 </template>
 
 <script>
+import PostDialog from "~/.nuxt/components/post-dialog.vue";
 export default {
+  components: { PostDialog },
   data: () => ({
     cards: ["Today", "Yesterday"],
     drawer: false,
     links: [
-      ["mdi-send", "投稿"],
-      ["mdi-account-heart-outline", "フォロー"],
-      ["mdi-thumb-up", "お気に入り"],
-      ["mdi-human-greeting-proximity", "DM"],
-      ["mdi-account-edit", "アカウント編集"],
-    ]
-  })
+      // {
+      //   icon: "mdi-send",
+      //   text: "投稿"
+      // },
+      {
+        icon: "mdi-account-heart-outline",
+        text: "フォロー"
+      },
+      {
+        icon: "mdi-thumb-up",
+        text: "お気に入り"
+      },
+      {
+        icon: "mdi-human-greeting-proximity",
+        text: "DM"
+      },
+      {
+        icon: "mdi-account-edit",
+        text: "アカウント編集"
+      }
+    ],
+    index: null
+  }),
+  methods: {
+    setIndex(index) {
+      this.index = index;
+    }
+  }
 };
 </script>
