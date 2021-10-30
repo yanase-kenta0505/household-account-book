@@ -8,12 +8,12 @@
       <v-sheet color="grey lighten-4" class="pa-4">
         <v-avatar class="mb-4" color="grey darken-1" size="64"></v-avatar>
 
-        <div>john@vuetifyjs.com</div>
+        <div>kenta@vuetifyjs.com</div>
       </v-sheet>
 
       <v-divider></v-divider>
       <v-list class="pt-0">
-      <post-dialog link></post-dialog>
+        <post-dialog link></post-dialog>
         <v-list-item v-for="(link, index) in links" :key="link.text" link>
           <v-list-item-icon>
             <v-icon>{{ link.icon }}</v-icon>
@@ -25,6 +25,7 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <acount-edit></acount-edit>
       </v-list>
     </v-navigation-drawer>
 
@@ -68,8 +69,9 @@
 
 <script>
 import PostDialog from "~/.nuxt/components/post-dialog.vue";
+import AcountEdit from "~/.nuxt/components/acount-edit.vue";
 export default {
-  components: { PostDialog },
+  components: { PostDialog, AcountEdit },
   data: () => ({
     cards: ["Today", "Yesterday"],
     drawer: false,
@@ -89,11 +91,11 @@ export default {
       {
         icon: "mdi-human-greeting-proximity",
         text: "DM"
-      },
-      {
-        icon: "mdi-account-edit",
-        text: "アカウント編集"
       }
+      // {
+      //   icon: "mdi-account-edit",
+      //   text: "アカウント編集"
+      // }
     ],
     index: null
   }),
