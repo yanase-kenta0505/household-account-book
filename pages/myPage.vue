@@ -13,7 +13,8 @@
 
       <v-divider></v-divider>
       <v-list class="pt-0">
-        <post-dialog link></post-dialog>
+        <post-dialog></post-dialog>
+        <follow></follow>
         <v-list-item v-for="(link, index) in links" :key="link.text" link>
           <v-list-item-icon>
             <v-icon>{{ link.icon }}</v-icon>
@@ -25,6 +26,7 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
         <acount-edit></acount-edit>
       </v-list>
     </v-navigation-drawer>
@@ -70,8 +72,9 @@
 <script>
 import PostDialog from "~/.nuxt/components/post-dialog.vue";
 import AcountEdit from "~/.nuxt/components/acount-edit.vue";
+import Follow from "~/.nuxt/components/follow.vue";
 export default {
-  components: { PostDialog, AcountEdit },
+  components: { PostDialog, AcountEdit, Follow },
   data: () => ({
     cards: ["Today", "Yesterday"],
     drawer: false,
@@ -80,10 +83,10 @@ export default {
       //   icon: "mdi-send",
       //   text: "投稿"
       // },
-      {
-        icon: "mdi-account-heart-outline",
-        text: "フォロー"
-      },
+      // {
+      //   icon: "mdi-account-heart-outline",
+      //   text: "フォロー"
+      // },
       {
         icon: "mdi-thumb-up",
         text: "お気に入り"
